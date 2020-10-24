@@ -7,13 +7,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-class AddProductServletTest extends DBClass {
+class AddProductServletTest extends BaseTest {
     @Test
     public void testEmpty() throws IOException {
         AddProductServlet servlet = new AddProductServlet();
+        Assertions.assertNotEquals(status.my, HttpServletResponse.SC_OK);
         Assertions.assertThrows(Exception.class, () -> servlet.doGet(request, response));
     }
 

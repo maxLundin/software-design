@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-class GetProductsServletTest extends DBClass {
+class GetProductsServletTest extends BaseTest {
 
     @Test
     public void testEmpty() throws IOException {
@@ -31,5 +31,4 @@ class GetProductsServletTest extends DBClass {
                         "xiaomi\t2</br>\n" +
                         "</body></html>\n");
     }
-
 }

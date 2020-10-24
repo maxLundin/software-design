@@ -1,6 +1,7 @@
 package ru.akirakozov.sd.refactoring.servlet;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
@@ -19,7 +20,7 @@ import java.sql.Statement;
 
 import static org.mockito.Mockito.when;
 
-public class DBClass {
+public class BaseTest {
 
     protected final StringWriter pw = new StringWriter();
 
@@ -39,7 +40,6 @@ public class DBClass {
     protected HttpServletRequest request;
     @Mock
     protected HttpServletResponse response;
-
 
     protected final MyInt status = new MyInt();
 
