@@ -13,6 +13,12 @@ import java.sql.Statement;
  */
 public class AddProductServlet extends HttpServlet {
 
+    private final myDB db;
+
+    public AddProductServlet(final myDB db) {
+        this.db = db;
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String name = request.getParameter("name");

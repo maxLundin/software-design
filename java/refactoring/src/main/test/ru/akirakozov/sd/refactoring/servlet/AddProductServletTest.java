@@ -12,14 +12,14 @@ import static org.mockito.Mockito.when;
 class AddProductServletTest extends BaseTest {
     @Test
     public void testEmpty() throws IOException {
-        AddProductServlet servlet = new AddProductServlet();
+        AddProductServlet servlet = new AddProductServlet(db);
         Assertions.assertNotEquals(status.my, HttpServletResponse.SC_OK);
         Assertions.assertThrows(Exception.class, () -> servlet.doGet(request, response));
     }
 
     @Test
     public void testFull() throws IOException, SQLException {
-        AddProductServlet servlet = new AddProductServlet();
+        AddProductServlet servlet = new AddProductServlet(db);
         doSql("insert into PRODUCT (name, price) values " +
                 "('apple', 1), " +
                 "('xiaomi', 2)");

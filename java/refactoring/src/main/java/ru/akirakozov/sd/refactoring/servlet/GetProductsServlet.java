@@ -10,8 +10,14 @@ import java.io.IOException;
  */
 public class GetProductsServlet extends HttpServlet {
 
+    private final myDB db;
+
+    public GetProductsServlet(final myDB db) {
+        this.db = db;
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        QueryHelper.doGet(response, "getAll");
+        QueryHelper.doGet(response, "getAll", db);
     }
 }

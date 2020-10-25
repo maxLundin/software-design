@@ -1,6 +1,5 @@
 package ru.akirakozov.sd.refactoring.servlet;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -96,10 +95,10 @@ public class QueryHelper {
         }
     }
 
-    static public void doGet(HttpServletResponse response, final String command) throws IOException {
+    static public void doGet(HttpServletResponse response, final String command, final myDB db) throws IOException {
         PrintWriter pw = response.getWriter();
         try {
-            try (Connection c = DriverManager.getConnection("jdbc:sqlite:test.db")) {
+            try (Connection c = DriverManager.getConnection(db.getDB())) {
                 Statement stmt = c.createStatement();
 
                 ResultSet rs = stmt.executeQuery(QueryHelper.getQuery(command));

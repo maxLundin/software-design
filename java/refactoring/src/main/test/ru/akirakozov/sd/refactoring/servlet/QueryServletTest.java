@@ -13,7 +13,7 @@ class QueryServletTest extends BaseTest {
 
     @Test
     void testEmpty() throws IOException {
-        QueryServlet servlet = new QueryServlet();
+        QueryServlet servlet = new QueryServlet(db);
         servlet.doGet(request, response);
         Assertions.assertEquals(pw.toString(), "Unknown command: null\n");
     }
@@ -26,12 +26,12 @@ class QueryServletTest extends BaseTest {
 
     private void testTemplateCommand(String command) throws IOException {
         when(request.getParameter("command")).thenReturn(command);
-        new QueryServlet().doGet(request, response);
+        new QueryServlet(db).doGet(request, response);
     }
 
     @Test
     void testMax() throws IOException, SQLException {
-        QueryServlet servlet = new QueryServlet();
+        QueryServlet servlet = new QueryServlet(db);
         fillDB();
         testTemplateCommand("max");
         Assertions.assertEquals(status.my, HttpServletResponse.SC_OK);
@@ -43,7 +43,7 @@ class QueryServletTest extends BaseTest {
 
     @Test
     void testMin() throws IOException, SQLException {
-        QueryServlet servlet = new QueryServlet();
+        QueryServlet servlet = new QueryServlet(db);
         fillDB();
         testTemplateCommand("min");
         Assertions.assertEquals(status.my, HttpServletResponse.SC_OK);
@@ -56,7 +56,7 @@ class QueryServletTest extends BaseTest {
 
     @Test
     void testSum() throws IOException, SQLException {
-        QueryServlet servlet = new QueryServlet();
+        QueryServlet servlet = new QueryServlet(db);
         fillDB();
         testTemplateCommand("sum");
         Assertions.assertEquals(status.my, HttpServletResponse.SC_OK);
@@ -69,7 +69,7 @@ class QueryServletTest extends BaseTest {
 
     @Test
     void testCount() throws IOException, SQLException {
-        QueryServlet servlet = new QueryServlet();
+        QueryServlet servlet = new QueryServlet(db);
         fillDB();
         testTemplateCommand("count");
         Assertions.assertEquals(status.my, HttpServletResponse.SC_OK);

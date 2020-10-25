@@ -12,10 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import static org.mockito.Mockito.when;
 
@@ -42,20 +39,15 @@ public class BaseTest {
 
     protected final MyInt status = new MyInt();
 
+    protected final myDB db = new myDB("jdbc:sqlite:test.db");
+
     protected void doSql(String sql) throws SQLException {
-        try (Connection c = DriverManager.getConnection("jdbc:sqlite:test.db")) {
-            Statement stmt = c.createStatement();
-            stmt.executeUpdate(sql);
-            stmt.close();
-        }
+        db.execDBupdate(sql);
     }
 
     @BeforeEach
     protected void createDB() throws SQLException {
-        doSql("CREATE TABLE IF NOT EXISTS PRODUCT" +
-                "(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                " NAME           TEXT    NOT NULL, " +
-                " PRICE          INT     NOT NULL)");
+        db.createDB();
     }
 
     @BeforeEach
