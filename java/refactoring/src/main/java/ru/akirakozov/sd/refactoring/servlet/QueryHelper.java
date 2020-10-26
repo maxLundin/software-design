@@ -1,5 +1,6 @@
 package ru.akirakozov.sd.refactoring.servlet;
 
+import ru.akirakozov.sd.refactoring.DB.myDB;
 import ru.akirakozov.sd.refactoring.HTML.HTMLBuilder;
 
 import javax.servlet.http.HttpServletResponse;
@@ -97,7 +98,7 @@ public class QueryHelper {
         HTMLBuilder builder = new HTMLBuilder();
 
 
-        try (Connection c = DriverManager.getConnection(db.getDB())) {
+        try (Connection c = DriverManager.getConnection(db.getDBName())) {
 
             Statement stmt = c.createStatement();
 

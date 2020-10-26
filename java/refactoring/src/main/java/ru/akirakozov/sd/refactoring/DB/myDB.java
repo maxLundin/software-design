@@ -1,8 +1,8 @@
-package ru.akirakozov.sd.refactoring.servlet;
+package ru.akirakozov.sd.refactoring.DB;
 
 import java.sql.*;
 
-public class myDB {
+public class myDB implements DB {
 
     private final String database;
 
@@ -10,7 +10,7 @@ public class myDB {
         this.database = database;
     }
 
-    public String getDB() {
+    public String getDBName() {
         return database;
     }
 
@@ -33,6 +33,5 @@ public class myDB {
             stmt.close();
         }
     }
-
 
 }
