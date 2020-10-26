@@ -2,7 +2,7 @@ package ru.akirakozov.sd.refactoring.HTML;
 
 public class HTMLBuilder {
 
-    StringBuilder sb;
+    final StringBuilder sb;
     final static String startPt = "<html><body>";
     final static String finalPt = "</body></html>";
 
@@ -18,9 +18,5 @@ public class HTMLBuilder {
     public String getHTML() {
         sb.append(finalPt).append('\n');
         return sb.toString();
-    }
-
-    void reset() {
-        this.sb = new StringBuilder();
     }
 }

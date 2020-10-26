@@ -63,7 +63,6 @@ class QueryServletTest extends BaseTest {
 
     @Test
     void testCount() throws IOException, SQLException {
-        QueryServlet servlet = new QueryServlet(db);
         fillDB();
         testTemplateCommand("count");
         Assertions.assertEquals(status.my, HttpServletResponse.SC_OK);

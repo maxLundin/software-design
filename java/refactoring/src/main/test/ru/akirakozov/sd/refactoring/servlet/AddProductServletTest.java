@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 
 class AddProductServletTest extends BaseTest {
     @Test
-    public void testEmpty() throws IOException {
+    public void testEmpty() {
         AddProductServlet servlet = new AddProductServlet(db);
         Assertions.assertNotEquals(status.my, HttpServletResponse.SC_OK);
         Assertions.assertThrows(Exception.class, () -> servlet.doGet(request, response));
