@@ -20,9 +20,7 @@ class AddProductServletTest extends BaseTest {
     @Test
     public void testFull() throws IOException, SQLException {
         AddProductServlet servlet = new AddProductServlet(db);
-        doSql("insert into PRODUCT (name, price) values " +
-                "('apple', 1), " +
-                "('xiaomi', 2)");
+        fillDB();
         when(request.getParameter("name")).thenReturn("apple");
         when(request.getParameter("price")).thenReturn("1");
         servlet.doGet(request, response);

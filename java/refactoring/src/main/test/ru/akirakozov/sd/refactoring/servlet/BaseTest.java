@@ -18,6 +18,8 @@ import static org.mockito.Mockito.when;
 
 public class BaseTest {
 
+    final String DB_TESTS_NAME = "jdbc:sqlite:test_for_tests.db";
+
     protected final StringWriter pw = new StringWriter();
 
     protected static class MyInt {
@@ -25,10 +27,6 @@ public class BaseTest {
 
         public MyInt() {
             my = 0;
-        }
-
-        public MyInt(int c) {
-            my = c;
         }
     }
 
@@ -39,10 +37,15 @@ public class BaseTest {
 
     protected final MyInt status = new MyInt();
 
-    protected final myDB db = new myDB("jdbc:sqlite:test.db");
+    protected final myDB db = new myDB(DB_TESTS_NAME);
+
+    protected void fillDB() throws SQLException {
+        db.addElem("apple", "1");
+        db.addElem("xiaomi", "2");
+    }
 
     protected void doSql(String sql) throws SQLException {
-        db.execDBupdate(sql);
+        db.execDBUpdate(sql);
     }
 
     @BeforeEach

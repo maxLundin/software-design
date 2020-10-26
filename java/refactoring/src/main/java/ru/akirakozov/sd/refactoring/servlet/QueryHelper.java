@@ -1,5 +1,7 @@
 package ru.akirakozov.sd.refactoring.servlet;
 
+import ru.akirakozov.sd.refactoring.HTML.HTMLBuilder;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,12 +12,6 @@ public class QueryHelper {
     public static class IllegalCommandException extends IllegalArgumentException {
         IllegalCommandException(String str) {
             super(str);
-        }
-    }
-
-    static private void printStatement(PrintWriter pw, String str) {
-        if (!str.isEmpty()) {
-            pw.println(str);
         }
     }
 
@@ -97,25 +93,27 @@ public class QueryHelper {
 
     static public void doGet(HttpServletResponse response, final String command, final myDB db) throws IOException {
         PrintWriter pw = response.getWriter();
-        try {
-            try (Connection c = DriverManager.getConnection(db.getDB())) {
-                Statement stmt = c.createStatement();
 
-                ResultSet rs = stmt.executeQuery(QueryHelper.getQuery(command));
-                printStatement(pw, "<html><body>");
-                printStatement(pw, QueryHelper.getHeader(command));
-                printStatement(pw, QueryHelper.queryResultToText(command, rs));
-                printStatement(pw, "</body></html>");
+        HTMLBuilder builder = new HTMLBuilder();
 
-                rs.close();
-                stmt.close();
-            }
+
+        try (Connection c = DriverManager.getConnection(db.getDB())) {
+
+            Statement stmt = c.createStatement();
+
+            ResultSet rs = stmt.executeQuery(QueryHelper.getQuery(command));
+            builder.addHTML(QueryHelper.getHeader(command));
+            builder.addHTML(QueryHelper.queryResultToText(command, rs));
+
+            rs.close();
+            stmt.close();
         } catch (QueryHelper.IllegalCommandException e) {
-            printStatement(pw, e.getMessage());
+            builder.addHTML(e.getMessage());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
+        pw.print(builder.getHTML());
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
     }

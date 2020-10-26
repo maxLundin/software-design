@@ -15,13 +15,10 @@ class QueryServletTest extends BaseTest {
     void testEmpty() throws IOException {
         QueryServlet servlet = new QueryServlet(db);
         servlet.doGet(request, response);
-        Assertions.assertEquals(pw.toString(), "Unknown command: null\n");
-    }
-
-    private void fillDB() throws SQLException {
-        doSql("insert into PRODUCT (name, price) values " +
-                "('apple', 1), " +
-                "('xiaomi', 2)");
+        Assertions.assertEquals(pw.toString(),
+                "<html><body>\n" +
+                        "Unknown command: null\n" +
+                        "</body></html>\n");
     }
 
     private void testTemplateCommand(String command) throws IOException {
@@ -31,7 +28,6 @@ class QueryServletTest extends BaseTest {
 
     @Test
     void testMax() throws IOException, SQLException {
-        QueryServlet servlet = new QueryServlet(db);
         fillDB();
         testTemplateCommand("max");
         Assertions.assertEquals(status.my, HttpServletResponse.SC_OK);
@@ -43,7 +39,6 @@ class QueryServletTest extends BaseTest {
 
     @Test
     void testMin() throws IOException, SQLException {
-        QueryServlet servlet = new QueryServlet(db);
         fillDB();
         testTemplateCommand("min");
         Assertions.assertEquals(status.my, HttpServletResponse.SC_OK);
@@ -56,7 +51,6 @@ class QueryServletTest extends BaseTest {
 
     @Test
     void testSum() throws IOException, SQLException {
-        QueryServlet servlet = new QueryServlet(db);
         fillDB();
         testTemplateCommand("sum");
         Assertions.assertEquals(status.my, HttpServletResponse.SC_OK);

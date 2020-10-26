@@ -20,9 +20,7 @@ class GetProductsServletTest extends BaseTest {
     @Test
     public void testFull() throws IOException, SQLException {
         GetProductsServlet servlet = new GetProductsServlet(db);
-        doSql("insert into PRODUCT (name, price) values " +
-                "('apple', 1), " +
-                "('xiaomi', 2)");
+        fillDB();
         servlet.doGet(request, response);
         Assertions.assertEquals(status.my, HttpServletResponse.SC_OK);
         Assertions.assertEquals(pw.toString(),
